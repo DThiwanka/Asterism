@@ -2,7 +2,7 @@
   "name": "asterism",
   "displayName": "Asterism",
   "description": "Interactive diagrams of your codebase: call hierarchies, inheritance and variable references, for any language with a language server.",
-  "version": "0.1.1",
+  "version": "1.1.0",
   "publisher": "DulajThiwanka",
   "icon": "Asterism.png",
   "license": "MIT",
@@ -43,6 +43,13 @@
       }
     ],
     "menus": {
+      "view/title": [
+        {
+          "command": "asterism.openGraph",
+          "when": "view == asterism.graphView",
+          "group": "navigation"
+        }
+      ],
       "explorer/context": [
         {
           "command": "asterism.graphSelection",
@@ -57,6 +64,25 @@
         {
           "command": "asterism.graphFunction",
           "group": "asterism@1"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "asterism",
+          "title": "Asterism",
+          "icon": "sidebarlogo.png"
+        }
+      ]
+    },
+    "views": {
+      "asterism": [
+        {
+          "type": "webview",
+          "id": "asterism.graphView",
+          "name": "Graphs",
+          "when": "true"
         }
       ]
     },

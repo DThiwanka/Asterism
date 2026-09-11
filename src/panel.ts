@@ -49,6 +49,10 @@ export class GraphPanel {
     this.panel.title = `Asterism: ${title}`;
   }
 
+  reveal() {
+    this.panel.reveal(undefined, false);
+  }
+
   private async handle(msg: FromWebview) {
     if (msg.type === 'ready') {
       this.ready = true;

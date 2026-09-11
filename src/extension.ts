@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { buildCallGraph, buildFilesGraph, expandSelection, itemId, rootItemAt } from './graphBuilder';
 import { GraphData } from './model';
 import { GraphPanel } from './panel';
+import { AsterismViewProvider, SidebarFile } from './sidebar';
 
 function settings() {
   const c = vscode.workspace.getConfiguration('asterism');
@@ -13,10 +14,35 @@ function settings() {
 }
 
 export function activate(context: vscode.ExtensionContext) {
+  const scanWorkspace = async (): Promise<SidebarFile[]> => {
+    const folders = vscode.workspace.workspaceFolders ?? [];
+    if (!folders.length) return [];
+    const cfg = settings();
+    const { files } = await expandSelection(folders.map((folder) => folder.uri), {
+      withVariables: false,
+      maxFiles: cfg.maxFiles,
+      exclude: cfg.exclude,
+    });
+    return files.map((uri) => {
+      const relative = vscode.workspace.asRelativePath(uri, false);
+      const slash = relative.lastIndexOf('/');
+      return {
+        uri: uri.toString(),
+        label: slash >= 0 ? relative.slice(slash + 1) : relative,
+        path: relative,
+      };
+    });
+  };
+  const sidebar = new AsterismViewProvider(scanWorkspace, (uri) => {
+    void vscode.commands.executeCommand('asterism.graphFile', uri);
+  });
+  context.subscriptions.push(vscode.window.registerWebviewViewProvider('asterism.graphView', sidebar));
+
   const showGraph = (data: GraphData) => {
     const panel = GraphPanel.show(context.extensionUri);
     panel.setTitle(data.title);
     panel.post({ type: 'graph', data });
+    sidebar.refresh();
   };
 
   // --- Graph for files and folders selected in the Explorer ----------------
@@ -128,10 +154,36 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     status,
     { dispose: stopFollowing },
+    vscode.commands.registerCommand('asterism.openGraph', () => {
+      if (GraphPanel.current) {
+        GraphPanel.current.reveal();
+      } else {
+        void vscode.window.showInformationMessage('Create a graph first, then open it from the Asterism sidebar.');
+      }
+    }),
+    vscode.commands.registerCommand('asterism.graphFile', (uri: string) =>
+      graphSelection(false)(vscode.Uri.parse(uri)),
+    ),
+    vscode.commands.registerCommand('asterism.graphWorkspace', () =>
+      graphSelection(false)(undefined, (vscode.workspace.workspaceFolders ?? []).map((folder) => folder.uri)),
+    ),
     vscode.commands.registerCommand('asterism.graphSelection', graphSelection(false)),
     vscode.commands.registerCommand('asterism.graphSelectionWithVariables', graphSelection(true)),
     vscode.commands.registerCommand('asterism.graphFunction', graphFunction),
     vscode.commands.registerCommand('asterism.toggleFollowCursor', () => (following ? stopFollowing() : startFollowing())),
+  );
+
+  let refreshTimer: NodeJS.Timeout | undefined;
+  const refreshSidebar = () => {
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(() => void sidebar.refresh(), 250);
+  };
+  context.subscriptions.push(
+    vscode.workspace.onDidCreateFiles(refreshSidebar),
+    vscode.workspace.onDidDeleteFiles(refreshSidebar),
+    vscode.workspace.onDidRenameFiles(refreshSidebar),
+    vscode.workspace.onDidChangeTextDocument(refreshSidebar),
+    { dispose: () => clearTimeout(refreshTimer) },
   );
 }
 

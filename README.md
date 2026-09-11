@@ -1,23 +1,44 @@
 # Asterism
 
-A VS Code extension that draws an interactive diagram of your code: which functions call which, which classes extend or implement which, and which functions use which variables. It works for any language that has a language extension installed (TypeScript, JavaScript, Python, Java, C#, C++, Go, Rust and more), because it never parses code itself.
+Asterism is a VS Code extension that helps you understand a codebase. It turns code relationships into an interactive graph.
 
-## Run it
+It can show:
+
+- Which functions call other functions
+- Which classes extend other classes
+- Which classes implement interfaces
+- Which functions use variables
+- Which files and folders contain each symbol
+
+Asterism does not need its own parser for every language. It uses the language support already installed in VS Code, so it can work with TypeScript, JavaScript, Python, Java, C#, C++, Go, Rust, and other supported languages.
+
+## Quick start
+
+1. Install the Asterism `.vsix` file, or start the project with `F5`.
+2. Open a project that has a VS Code language extension installed.
+3. Click the **Asterism** icon in the Activity Bar.
+4. Asterism scans the workspace and shows its folders and files.
+5. Search for a file or expand a folder.
+6. Click a file to open its graph in the main editor area.
+
+The sidebar also has **Graph entire workspace** for a project-wide graph. Use **Refresh files** after a large change if you want to scan immediately. Asterism also refreshes the file list when files are created, changed, renamed, or deleted.
+
+## Other ways to create a graph
+
+- In the Explorer, right-click files or folders and choose **Create graph for selected files**.
+- In the editor, right-click a function and choose **Graph calls from this function**.
+- From the Command Palette, run **Asterism: Toggle focused symbol graph** to follow the symbol under the cursor.
+
+To develop the extension:
 
 ```bash
 npm install
 npm run compile
 ```
 
-Open this folder in VS Code and press F5. A second VS Code window (the Extension Development Host) opens with Asterism loaded. Open any project in that window, then try the three ways to make a graph.
+Open this folder in VS Code and press `F5`. A new Extension Development Host window opens with Asterism loaded.
 
-In the Explorer, select files or folders, right-click and choose **Create graph for selected files**. The "with variables" version also links functions to the top-level variables and class fields they use.
-
-In the editor, put the cursor on a function name, right-click and choose **Graph calls from this function**. It follows calls to the depth set in `asterism.callDepth` (3 by default).
-
-From the Command Palette, run **Asterism: Toggle focused symbol graph**. The graph now follows your cursor and shows the callers and callees of whatever function you are in. Click the status bar item to stop.
-
-To work on the graph UI without launching VS Code, run `npm run preview` and open `preview/index.html` (or `index-light.html`) in a browser. It loads the real webview code with sample data.
+To preview the graph UI in a browser, run `npm run preview` and open `preview/index.html` or `preview/index-light.html`.
 
 ## Using the graph
 
@@ -52,7 +73,15 @@ Every call target, definition and reference is mapped back to a graph node by fi
 | `asterism.maxFiles` | 300 | Most files included from a selection |
 | `asterism.exclude` | node_modules, .git, dist, out, build, venvs | Files skipped when expanding folders and following calls |
 
-## Ideas for next steps
+## Project status
+
+Asterism includes an Activity Bar sidebar, automatic workspace scanning, a folder and file tree, file search, refresh support, graph grouping, graph filtering, symbol tracing, source navigation, and light, dark, and high-contrast theme support.
+
+The graph uses Cytoscape.js and the fCoSE layout. The extension uses VS Code language-server commands for symbol, call, type, definition, and reference information.
+
+The project was developed from an original idea and technical direction by Dulaj Thiwanka, with GPT-5.6 LUNA Agentic Coding used as a development assistant. The architecture, feature choices, integration, branding, testing, packaging, and release work were directed as part of the project development.
+
+## Possible future improvements
 
 Custom logical groups (let the user select nodes and name a group), saved views per workspace, export to SVG or PNG (`cy.png()` / `cy.svg()` via the cytoscape-svg plugin), showing calls into external libraries as faded leaf nodes, and caching symbol results keyed by document version so re-graphing a large folder is instant. If you plan to sell it with limits like Atomic Viz does, the natural place to enforce them is `expandSelection` (file count) and `buildCallGraph` (depth), with license checks kept on a server you control.
 
