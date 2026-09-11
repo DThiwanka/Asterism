@@ -1,0 +1,100 @@
+# Logo — Asterism VS Code Extension Icon
+
+## Objective
+
+Design the app icon for Asterism, a VS Code extension that draws interactive
+maps of a codebase: functions and classes are nodes, and the calls between
+them are connecting lines. Clicking a node traces what it calls and what
+calls it.
+
+An asterism is a small, recognizable pattern of stars, like the Big Dipper.
+The icon should show code as a star pattern.
+
+The icon must be recognizable at 42 px in the VS Code Extensions sidebar
+and look sharp at 256 px on the Marketplace page.
+
+---
+
+# 1. Concept
+
+Show a small star pattern of 4–6 stars joined by thin constellation lines,
+like a star chart.
+
+The main shape is built around three brighter stars forming a triangle,
+inspired by the ⁂ asterism symbol. One or two smaller stars branch off
+it, so it reads as a pattern rather than a plain triangle.
+
+One star is the focus:
+* the largest and brightest star
+* has one outgoing line in blue and one incoming line in green
+
+The other lines are soft and muted.
+
+This mirrors the extension's main feature: tracing a function's calls.
+
+---
+
+# 2. Stars
+
+* draw the stars as clean four-point sparkle shapes, or as bright round dots
+  with a soft glow; use one style consistently
+* vary the star sizes slightly (large, medium, small) for depth
+* the stars must be solid and bold enough to survive shrinking
+* do not use five-point cartoon stars
+
+---
+
+# 3. Style
+
+* flat vector style
+* simple geometric shapes
+* consistent line weight, thick enough to survive shrinking
+* rounded line caps
+* no 3D, no bevels, no heavy shadows, no glossy effects
+* only a soft glow around the stars
+
+---
+
+# 4. Colors
+
+* Background: deep night-sky navy (#141B2D) in a rounded square tile
+* Stars: warm white (#FFF6E0) with a hint of gold (#EE9D28) on the focus star
+* Traced lines: blue (#3794FF) outgoing, green (#89D185) incoming
+* Other lines: muted gray-blue (#5A6478)
+* Optional: a few tiny faint background stars in the far corners
+
+The icon must stand out on both white and dark backgrounds.
+
+---
+
+# 5. Composition
+
+* square, 1:1
+* centered, with even padding around the pattern
+* rounded-square tile, corner radius about 22% of the width
+* no more than 6 main stars
+
+---
+
+# 6. Do NOT Include
+
+* any text, letters, or the name
+* typographic asterisks (*) or the ⁂ character itself; use it only as
+  inspiration for the triangle shape
+* the VS Code logo or anything resembling it
+* planets, moons, rockets, galaxies, or nebula clouds
+* brains, robots, or generic AI sparkle symbols
+* code symbols like </> or {}
+* busy detail, thin hairlines, or tiny stars that disappear when shrunk
+* photographic or realistic space textures
+
+---
+
+# Output
+
+A single square icon, 1024×1024, flat vector look, on the navy tile.
+Generate 4 variations:
+1. triangle of three stars plus one branching star
+2. triangle plus two branching stars
+3. four-point sparkle stars instead of dots
+4. the same pattern, simplified as much as possible for tiny sizes

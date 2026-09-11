@@ -1,4 +1,4 @@
-// Code Atlas webview. Receives GraphData from the extension and draws it.
+// Asterism webview. Receives GraphData from the extension and draws it.
 (function () {
   'use strict';
 
@@ -887,5 +887,5 @@
 
   updateToolbar();
   vscode.postMessage({ type: 'ready' });
-  window.__codeAtlas = { loadGraph, state, get cy() { return cy; } }; // handy for debugging in devtools
+  window.__asterism = { loadGraph, state, get cy() { return cy; } }; // handy for debugging in devtools
 })();

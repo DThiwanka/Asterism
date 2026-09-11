@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { BODY } from './markup';
 import { FromWebview, ToWebview } from './model';
 
-/** The single Code Atlas panel. New graphs replace the current one. */
+/** The single Asterism panel. New graphs replace the current one. */
 export class GraphPanel {
   static current: GraphPanel | undefined;
 
@@ -17,8 +17,8 @@ export class GraphPanel {
       return GraphPanel.current;
     }
     const panel = vscode.window.createWebviewPanel(
-      'codeAtlas',
-      'Code Atlas',
+      'asterism',
+      'Asterism',
       { viewColumn: vscode.ViewColumn.Beside, preserveFocus: true },
       {
         enableScripts: true,
@@ -46,7 +46,7 @@ export class GraphPanel {
   }
 
   setTitle(title: string) {
-    this.panel.title = `Code Atlas: ${title}`;
+    this.panel.title = `Asterism: ${title}`;
   }
 
   private async handle(msg: FromWebview) {
@@ -86,7 +86,7 @@ export class GraphPanel {
     content="default-src 'none'; style-src ${webview.cspSource} 'unsafe-inline'; img-src ${webview.cspSource} data:; script-src 'nonce-${nonce}';">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="${media('graph.css')}">
-  <title>Code Atlas</title>
+  <title>Asterism</title>
 </head>
 <body>
 ${BODY}

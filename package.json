@@ -1,9 +1,10 @@
 {
-  "name": "code-atlas",
-  "displayName": "Code Atlas",
+  "name": "asterism",
+  "displayName": "Asterism",
   "description": "Interactive diagrams of your codebase: call hierarchies, inheritance and variable references, for any language with a language server.",
   "version": "0.1.0",
   "publisher": "DulajThiwanka",
+  "icon": "Asterism.png",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -21,60 +22,60 @@
   "contributes": {
     "commands": [
       {
-        "command": "codeAtlas.graphSelection",
+        "command": "asterism.graphSelection",
         "title": "Create graph for selected files",
-        "category": "Code Atlas"
+        "category": "Asterism"
       },
       {
-        "command": "codeAtlas.graphSelectionWithVariables",
+        "command": "asterism.graphSelectionWithVariables",
         "title": "Create graph for selected files, with variables",
-        "category": "Code Atlas"
+        "category": "Asterism"
       },
       {
-        "command": "codeAtlas.graphFunction",
+        "command": "asterism.graphFunction",
         "title": "Graph calls from this function",
-        "category": "Code Atlas"
+        "category": "Asterism"
       },
       {
-        "command": "codeAtlas.toggleFollowCursor",
+        "command": "asterism.toggleFollowCursor",
         "title": "Toggle focused symbol graph (follow cursor)",
-        "category": "Code Atlas"
+        "category": "Asterism"
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "command": "codeAtlas.graphSelection",
-          "group": "codeAtlas@1"
+          "command": "asterism.graphSelection",
+          "group": "asterism@1"
         },
         {
-          "command": "codeAtlas.graphSelectionWithVariables",
-          "group": "codeAtlas@2"
+          "command": "asterism.graphSelectionWithVariables",
+          "group": "asterism@2"
         }
       ],
       "editor/context": [
         {
-          "command": "codeAtlas.graphFunction",
-          "group": "codeAtlas@1"
+          "command": "asterism.graphFunction",
+          "group": "asterism@1"
         }
       ]
     },
     "configuration": {
-      "title": "Code Atlas",
+      "title": "Asterism",
       "properties": {
-        "codeAtlas.callDepth": {
+        "asterism.callDepth": {
           "type": "number",
           "default": 3,
           "minimum": 1,
           "maximum": 10,
           "description": "How many levels of calls to follow when graphing a single function."
         },
-        "codeAtlas.maxFiles": {
+        "asterism.maxFiles": {
           "type": "number",
           "default": 300,
           "description": "Maximum number of files to include when graphing a selection."
         },
-        "codeAtlas.exclude": {
+        "asterism.exclude": {
           "type": "string",
           "default": "**/{node_modules,.git,dist,out,build,__pycache__,.venv,venv}/**",
           "description": "Glob of files to skip when expanding selected folders and when following calls."

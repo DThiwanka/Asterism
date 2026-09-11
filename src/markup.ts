@@ -1,7 +1,7 @@
 /** Static webview markup. Kept free of the vscode import so preview/build-preview.js can use it too. */
 export const BODY = /* html */ `
 <header class="toolbar">
-  <div class="title"><span id="title">Code Atlas</span><span id="counts" class="counts"></span></div>
+  <div class="title"><span id="title">Asterism</span><span id="counts" class="counts"></span></div>
   <div class="segmented" role="radiogroup" aria-label="Group by">
     <span class="segmented-label">Group by</span>
     <button role="radio" data-group="folder">Folder</button>
@@ -29,7 +29,7 @@ export const BODY = /* html */ `
     <div id="empty" class="empty">
       <p class="empty-title">No graph yet</p>
       <p>In the Explorer, select files or folders, right-click and choose
-      <strong>Code Atlas: Create graph for selected files</strong>.
+      <strong>Asterism: Create graph for selected files</strong>.
       Or right-click a function in the editor and choose <strong>Graph calls from this function</strong>.</p>
     </div>
     <div id="menu" class="menu" role="menu" hidden></div>

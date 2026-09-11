@@ -1,4 +1,4 @@
-# Code Atlas
+# Asterism
 
 A VS Code extension that draws an interactive diagram of your code: which functions call which, which classes extend or implement which, and which functions use which variables. It works for any language that has a language extension installed (TypeScript, JavaScript, Python, Java, C#, C++, Go, Rust and more), because it never parses code itself.
 
@@ -9,13 +9,13 @@ npm install
 npm run compile
 ```
 
-Open this folder in VS Code and press F5. A second VS Code window (the Extension Development Host) opens with Code Atlas loaded. Open any project in that window, then try the three ways to make a graph.
+Open this folder in VS Code and press F5. A second VS Code window (the Extension Development Host) opens with Asterism loaded. Open any project in that window, then try the three ways to make a graph.
 
 In the Explorer, select files or folders, right-click and choose **Create graph for selected files**. The "with variables" version also links functions to the top-level variables and class fields they use.
 
-In the editor, put the cursor on a function name, right-click and choose **Graph calls from this function**. It follows calls to the depth set in `codeAtlas.callDepth` (3 by default).
+In the editor, put the cursor on a function name, right-click and choose **Graph calls from this function**. It follows calls to the depth set in `asterism.callDepth` (3 by default).
 
-From the Command Palette, run **Code Atlas: Toggle focused symbol graph**. The graph now follows your cursor and shows the callers and callees of whatever function you are in. Click the status bar item to stop.
+From the Command Palette, run **Asterism: Toggle focused symbol graph**. The graph now follows your cursor and shows the callers and callees of whatever function you are in. Click the status bar item to stop.
 
 To work on the graph UI without launching VS Code, run `npm run preview` and open `preview/index.html` (or `index-light.html`) in a browser. It loads the real webview code with sample data.
 
@@ -48,9 +48,9 @@ Every call target, definition and reference is mapped back to a graph node by fi
 
 | Setting | Default | What it does |
 | --- | --- | --- |
-| `codeAtlas.callDepth` | 3 | Levels of calls to follow from a single function |
-| `codeAtlas.maxFiles` | 300 | Most files included from a selection |
-| `codeAtlas.exclude` | node_modules, .git, dist, out, build, venvs | Files skipped when expanding folders and following calls |
+| `asterism.callDepth` | 3 | Levels of calls to follow from a single function |
+| `asterism.maxFiles` | 300 | Most files included from a selection |
+| `asterism.exclude` | node_modules, .git, dist, out, build, venvs | Files skipped when expanding folders and following calls |
 
 ## Ideas for next steps
 

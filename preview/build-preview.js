@@ -10,7 +10,7 @@ const theme = process.argv[2] === 'light'
 
 const html = `<!DOCTYPE html>
 <html lang="en" style="${theme}--vscode-font-family:-apple-system,'Segoe UI',system-ui,sans-serif;--vscode-font-size:13px;--vscode-editor-font-family:Menlo,Consolas,'DejaVu Sans Mono',monospace;">
-<head><meta charset="UTF-8"><title>Code Atlas preview</title><link rel="stylesheet" href="../media/graph.css"></head>
+<head><meta charset="UTF-8"><title>Asterism preview</title><link rel="stylesheet" href="../media/graph.css"></head>
 <body>
 ${BODY}
 <script>window.__posted = [];</script>

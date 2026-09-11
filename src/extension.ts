@@ -4,7 +4,7 @@ import { GraphData } from './model';
 import { GraphPanel } from './panel';
 
 function settings() {
-  const c = vscode.workspace.getConfiguration('codeAtlas');
+  const c = vscode.workspace.getConfiguration('asterism');
   return {
     callDepth: c.get<number>('callDepth', 3),
     maxFiles: c.get<number>('maxFiles', 300),
@@ -40,17 +40,17 @@ export function activate(context: vscode.ExtensionContext) {
     const cfg = settings();
     const opts = { withVariables, maxFiles: cfg.maxFiles, exclude: cfg.exclude };
     const data = await vscode.window.withProgress(
-      { location: vscode.ProgressLocation.Notification, title: 'Code Atlas', cancellable: true },
+      { location: vscode.ProgressLocation.Notification, title: 'Asterism', cancellable: true },
       async (progress, token) => {
         progress.report({ message: 'Finding files' });
         const { files, skipped } = await expandSelection(uris, opts);
         if (!files.length) {
-          void vscode.window.showWarningMessage('Code Atlas found no source files in the selection.');
+          void vscode.window.showWarningMessage('Asterism found no source files in the selection.');
           return undefined;
         }
         const result = await buildFilesGraph(files, opts, progress, token);
         if (skipped) {
-          result.notes.unshift(`${skipped} more files were left out. Raise "codeAtlas.maxFiles" to include them.`);
+          result.notes.unshift(`${skipped} more files were left out. Raise "asterism.maxFiles" to include them.`);
         }
         return token.isCancellationRequested ? undefined : result;
       },
@@ -74,7 +74,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
     const cfg = settings();
     const data = await vscode.window.withProgress(
-      { location: vscode.ProgressLocation.Notification, title: `Code Atlas: following calls from ${root.name}`, cancellable: true },
+      { location: vscode.ProgressLocation.Notification, title: `Asterism: following calls from ${root.name}`, cancellable: true },
       (_p, token) => buildCallGraph(root, { outDepth: cfg.callDepth, inDepth: 0, exclude: cfg.exclude }, token),
     );
     showGraph(data);
@@ -84,8 +84,8 @@ export function activate(context: vscode.ExtensionContext) {
   let following: vscode.Disposable | undefined;
   const status = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
   status.text = '$(type-hierarchy) Following cursor';
-  status.tooltip = 'Code Atlas is graphing the symbol under the cursor. Click to stop.';
-  status.command = 'codeAtlas.toggleFollowCursor';
+  status.tooltip = 'Asterism is graphing the symbol under the cursor. Click to stop.';
+  status.command = 'asterism.toggleFollowCursor';
 
   const stopFollowing = () => {
     following?.dispose();
@@ -128,10 +128,10 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     status,
     { dispose: stopFollowing },
-    vscode.commands.registerCommand('codeAtlas.graphSelection', graphSelection(false)),
-    vscode.commands.registerCommand('codeAtlas.graphSelectionWithVariables', graphSelection(true)),
-    vscode.commands.registerCommand('codeAtlas.graphFunction', graphFunction),
-    vscode.commands.registerCommand('codeAtlas.toggleFollowCursor', () => (following ? stopFollowing() : startFollowing())),
+    vscode.commands.registerCommand('asterism.graphSelection', graphSelection(false)),
+    vscode.commands.registerCommand('asterism.graphSelectionWithVariables', graphSelection(true)),
+    vscode.commands.registerCommand('asterism.graphFunction', graphFunction),
+    vscode.commands.registerCommand('asterism.toggleFollowCursor', () => (following ? stopFollowing() : startFollowing())),
   );
 }
 
