@@ -1,0 +1,101 @@
+{
+  "name": "code-atlas",
+  "displayName": "Code Atlas",
+  "description": "Interactive diagrams of your codebase: call hierarchies, inheritance and variable references, for any language with a language server.",
+  "version": "0.1.0",
+  "publisher": "DulajThiwanka",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DThiwanka/Code-Atlas.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Visualization",
+    "Programming Languages"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "codeAtlas.graphSelection",
+        "title": "Create graph for selected files",
+        "category": "Code Atlas"
+      },
+      {
+        "command": "codeAtlas.graphSelectionWithVariables",
+        "title": "Create graph for selected files, with variables",
+        "category": "Code Atlas"
+      },
+      {
+        "command": "codeAtlas.graphFunction",
+        "title": "Graph calls from this function",
+        "category": "Code Atlas"
+      },
+      {
+        "command": "codeAtlas.toggleFollowCursor",
+        "title": "Toggle focused symbol graph (follow cursor)",
+        "category": "Code Atlas"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "codeAtlas.graphSelection",
+          "group": "codeAtlas@1"
+        },
+        {
+          "command": "codeAtlas.graphSelectionWithVariables",
+          "group": "codeAtlas@2"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "codeAtlas.graphFunction",
+          "group": "codeAtlas@1"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Code Atlas",
+      "properties": {
+        "codeAtlas.callDepth": {
+          "type": "number",
+          "default": 3,
+          "minimum": 1,
+          "maximum": 10,
+          "description": "How many levels of calls to follow when graphing a single function."
+        },
+        "codeAtlas.maxFiles": {
+          "type": "number",
+          "default": 300,
+          "description": "Maximum number of files to include when graphing a selection."
+        },
+        "codeAtlas.exclude": {
+          "type": "string",
+          "default": "**/{node_modules,.git,dist,out,build,__pycache__,.venv,venv}/**",
+          "description": "Glob of files to skip when expanding selected folders and when following calls."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vendor": "node scripts/copy-vendor.js",
+    "compile": "npm run vendor && tsc -p ./",
+    "watch": "npm run vendor && tsc -watch -p ./",
+    "package": "npx @vscode/vsce package",
+    "preview": "npm run compile && node preview/build-preview.js && node preview/build-preview.js light"
+  },
+  "dependencies": {
+    "cytoscape": "^3.30.0",
+    "cytoscape-fcose": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "1.85.0",
+    "typescript": "^5.9.3"
+  }
+}
