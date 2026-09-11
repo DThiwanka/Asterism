@@ -2,7 +2,7 @@
   "name": "asterism",
   "displayName": "Asterism",
   "description": "Interactive diagrams of your codebase: call hierarchies, inheritance and variable references, for any language with a language server.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "DulajThiwanka",
   "icon": "Asterism.png",
   "license": "MIT",
