@@ -87,4 +87,18 @@ Custom logical groups (let the user select nodes and name a group), saved views 
 
 ## Publishing
 
-Set `publisher` in `package.json`, then `npm run package` to build a `.vsix` with `@vscode/vsce`, and follow the [publishing guide](https://code.visualstudio.com/api/working-with-extensions/publishing-extension) to put it on the Marketplace.
+Set `publisher` in `package.json`, then `npm run package` to build a `.vsix` with `@vscode/vsce`.
+
+GitHub can save release packages automatically. First commit and push the version change, then create and push a matching tag:
+
+```bash
+git add .
+git commit -m "chore: prepare Asterism 1.2.0 release"
+git push origin main
+git tag v1.2.0
+git push origin v1.2.0
+```
+
+The GitHub Actions workflow checks that the tag matches the version in `package.json`, compiles the extension, creates `asterism-1.2.0.vsix`, and attaches it to a new GitHub Release. It does not publish to the VS Code Marketplace; Marketplace publishing still needs a publisher token.
+
+For Marketplace publishing, follow the [publishing guide](https://code.visualstudio.com/api/working-with-extensions/publishing-extension).
