@@ -3,3 +3,4 @@ out
 media/vendor
 preview/*.html
 *.vsix
+config.bat
