@@ -2,13 +2,13 @@
   "name": "asterism",
   "displayName": "Asterism",
   "description": "Interactive diagrams of your codebase: call hierarchies, inheritance and variable references, for any language with a language server.",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "publisher": "DulajThiwanka",
   "icon": "Asterism.png",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DThiwanka/Code-Atlas.git"
+    "url": "https://github.com/DThiwanka/Asterism.git"
   },
   "engines": {
     "vscode": "^1.85.0"
